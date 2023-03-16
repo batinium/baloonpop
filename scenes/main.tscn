@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://cbh82f1ftf227"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_ag326"]
+[ext_resource type="PackedScene" uid="uid://cchdvkrkmypvp" path="res://scenes/base.tscn" id="2_ytxd8"]
+[ext_resource type="Script" path="res://phasetimer.gd" id="3_cl0xp"]
+[ext_resource type="PackedScene" uid="uid://tj3ygeh8747i" path="res://scenes/gui.tscn" id="4_hke40"]
+[ext_resource type="AudioStream" uid="uid://mqsmfonsxif" path="res://audio/click.mp3" id="6_gshxp"]
+[ext_resource type="PackedScene" uid="uid://7rq4vr88sbr7" path="res://scenes/turrets/n_turret.tscn" id="8_apw5q"]
+[ext_resource type="PackedScene" uid="uid://cokfaukut2twu" path="res://scenes/turrets/playership.tscn" id="8_vvhh4"]
+[ext_resource type="PackedScene" uid="uid://c0k31ye2flcos" path="res://scenes/balloonmachine.tscn" id="10_mmb1b"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_ag326")
+
+[node name="balloonmachine" parent="." instance=ExtResource("10_mmb1b")]
+
+[node name="base" parent="." instance=ExtResource("2_ytxd8")]
+
+[node name="phasetimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+script = ExtResource("3_cl0xp")
+
+[node name="playership" parent="." instance=ExtResource("8_vvhh4")]
+position = Vector2(726, 946)
+scale = Vector2(0.5, 0.5)
+
+[node name="n_turret" parent="." instance=ExtResource("8_apw5q")]
+position = Vector2(473, 806)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="gui" parent="CanvasLayer" instance=ExtResource("4_hke40")]
+position = Vector2(0, -1)
+
+[node name="pop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_gshxp")
+
+[connection signal="timeout" from="phasetimer" to="phasetimer" method="_on_timeout"]

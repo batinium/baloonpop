@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://b3f3g3y83cid6"]
+
+[ext_resource type="Script" path="res://turret.gd" id="1_7apbv"]
+[ext_resource type="Texture2D" uid="uid://drbudeiekagpd" path="res://colors/HotAirBalloon.png" id="1_bs0xl"]
+[ext_resource type="Texture2D" uid="uid://l2g501hfgxcj" path="res://icon.svg" id="2_1uu8r"]
+[ext_resource type="AudioStream" uid="uid://nctakisylxur" path="res://audio/arrow.mp3" id="3_b44ri"]
+[ext_resource type="PackedScene" uid="uid://b37ny68ctk0qr" path="res://scenes/shop.tscn" id="4_diyju"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w2wbp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bs0xl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_54dqp"]
+radius = 571.148
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_be2xo"]
+size = Vector2(138, 133)
+
+[node name="turret" type="AnimatedSprite2D" groups=["turret"]]
+position = Vector2(460, 265)
+sprite_frames = SubResource("SpriteFrames_w2wbp")
+script = ExtResource("1_7apbv")
+
+[node name="shop" parent="." instance=ExtResource("4_diyju")]
+visible = false
+position = Vector2(-72, -147)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_54dqp")
+
+[node name="shoottimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_b44ri")
+volume_db = -10.775
+
+[node name="mouse" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mouse"]
+position = Vector2(2, -1.5)
+shape = SubResource("RectangleShape2D_be2xo")
+
+[node name="gunbarrel" type="Sprite2D" parent="."]
+position = Vector2(-4.57764e-05, 1)
+rotation = 1.58851
+scale = Vector2(1.00805, 0.143552)
+texture = ExtResource("2_1uu8r")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="timeout" from="shoottimer" to="." method="_on_shoottimer_timeout"]
+[connection signal="input_event" from="mouse" to="." method="_on_mouse_input_event"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0k31ye2flcos"]
+
+[ext_resource type="Script" path="res://scenes/balloonmachine.gd" id="1_10u1y"]
+[ext_resource type="AudioStream" uid="uid://mqsmfonsxif" path="res://audio/click.mp3" id="2_gwrfx"]
+
+[node name="balloonmachine" type="Node2D"]
+script = ExtResource("1_10u1y")
+
+[node name="balloontimer" type="Timer" parent="."]
+autostart = true
+
+[node name="pop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_gwrfx")
+
+[connection signal="timeout" from="balloontimer" to="." method="_on_balloontimer_timeout"]

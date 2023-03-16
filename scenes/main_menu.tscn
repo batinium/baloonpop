@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0fhnnj7t3jgj"]
+
+[ext_resource type="Script" path="res://main_menu.gd" id="1_0wx5b"]
+[ext_resource type="Texture2D" uid="uid://xi7jqokp781y" path="res://colors/HyperCasual Game UI/BG.png" id="2_1x245"]
+[ext_resource type="Texture2D" uid="uid://dpdg5divbc418" path="res://colors/HyperCasual Game UI/greenBtnInactive.png" id="3_k0gka"]
+[ext_resource type="Texture2D" uid="uid://rafho82ets5i" path="res://colors/HyperCasual Game UI/playBtn.png" id="4_d0bnx"]
+[ext_resource type="PackedScene" uid="uid://c0k31ye2flcos" path="res://scenes/balloonmachine.tscn" id="5_ivtv1"]
+[ext_resource type="Texture2D" uid="uid://q1n76fqv5evt" path="res://colors/HyperCasual Game UI/noAdsBtn.png" id="6_hxcjh"]
+
+[node name="main_menu" type="Node2D"]
+script = ExtResource("1_0wx5b")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(537.5, 961)
+scale = Vector2(2.2, 3.903)
+texture = ExtResource("2_1x245")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="GreenBtnInactive_play" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(543, 850)
+texture = ExtResource("3_k0gka")
+
+[node name="PlayBtn" type="Sprite2D" parent="CanvasLayer/GreenBtnInactive_play"]
+position = Vector2(9, -5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_d0bnx")
+
+[node name="play_button" type="Button" parent="CanvasLayer/GreenBtnInactive_play"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -180.0
+offset_top = -82.0
+offset_right = 180.0
+offset_bottom = 80.0
+
+[node name="balloonmachine" parent="." instance=ExtResource("5_ivtv1")]
+
+[node name="NoAdsBtn" type="Sprite2D" parent="."]
+position = Vector2(550, 1131)
+texture = ExtResource("6_hxcjh")
+
+[connection signal="button_down" from="CanvasLayer/GreenBtnInactive_play/play_button" to="." method="_on_play_button_button_down"]

@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://36lkgacmm8bo"]
+
+[ext_resource type="Script" path="res://scenes/turrets/turret2.gd" id="1_jf2wb"]
+[ext_resource type="Texture2D" uid="uid://drbudeiekagpd" path="res://colors/HotAirBalloon.png" id="2_iwww8"]
+[ext_resource type="PackedScene" uid="uid://b37ny68ctk0qr" path="res://scenes/shop.tscn" id="3_5havf"]
+[ext_resource type="AudioStream" uid="uid://nctakisylxur" path="res://audio/arrow.mp3" id="4_4xo42"]
+[ext_resource type="Texture2D" uid="uid://l2g501hfgxcj" path="res://icon.svg" id="5_cgsqx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gu8en"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iwww8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bft6v"]
+radius = 404.005
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2impd"]
+size = Vector2(138, 133)
+
+[node name="s_turret" type="Node2D" groups=["slowturret"]]
+position = Vector2(475, 506)
+script = ExtResource("1_jf2wb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0, 0.498039, 0.976471, 1)
+position = Vector2(9, 32)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_gu8en")
+
+[node name="shop" parent="." instance=ExtResource("3_5havf")]
+position = Vector2(-79, -208)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bft6v")
+
+[node name="shoottimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_4xo42")
+volume_db = -10.775
+
+[node name="mouse" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mouse"]
+position = Vector2(2, -1.5)
+shape = SubResource("RectangleShape2D_2impd")
+
+[node name="gunbarrel" type="Sprite2D" parent="."]
+position = Vector2(-4.57764e-05, 1)
+rotation = 1.58851
+scale = Vector2(1.00805, 0.143552)
+texture = ExtResource("5_cgsqx")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="timeout" from="shoottimer" to="." method="_on_shoottimer_timeout"]
+[connection signal="input_event" from="mouse" to="." method="_on_mouse_input_event"]

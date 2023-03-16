@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://b37ny68ctk0qr"]
+
+[ext_resource type="Script" path="res://scenes/shop.gd" id="1_xsph2"]
+
+[node name="turretupmenu" type="Node2D"]
+script = ExtResource("1_xsph2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color(0.180392, 0.180392, 0.180392, 0.462745)
+offset_right = 143.0
+offset_bottom = 70.0
+
+[node name="upbutton" type="Button" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 87.0
+offset_bottom = 64.0
+
+[node name="level" type="RichTextLabel" parent="."]
+offset_left = 94.0
+offset_top = 9.0
+offset_right = 154.0
+offset_bottom = 33.0
+text = "LEVEL"
+
+[node name="level2" type="RichTextLabel" parent="."]
+offset_left = 95.0
+offset_top = 35.0
+offset_right = 155.0
+offset_bottom = 59.0
+text = "0
+"
+
+[connection signal="pressed" from="upbutton" to="." method="_on_button_pressed"]

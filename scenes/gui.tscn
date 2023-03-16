@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://tj3ygeh8747i"]
+
+[ext_resource type="Script" path="res://scenes/gui.gd" id="1_x6yni"]
+[ext_resource type="Texture2D" uid="uid://dpdg5divbc418" path="res://colors/HyperCasual Game UI/greenBtnInactive.png" id="2_u7ohc"]
+[ext_resource type="Texture2D" uid="uid://digal5b1pyx85" path="res://colors/HyperCasual Game UI/coinIcon.png" id="3_a5qyp"]
+[ext_resource type="Texture2D" uid="uid://0ycsf0b8fjii" path="res://colors/HyperCasual Game UI/circle.png" id="4_mpuak"]
+[ext_resource type="Texture2D" uid="uid://cv5gwfok2m45c" path="res://colors/HyperCasual Game UI/plusIcon.png" id="5_jsc75"]
+[ext_resource type="Texture2D" uid="uid://bwn0vxykrwbi" path="res://colors/HyperCasual Game UI/blueBtnNormal.png" id="6_h7ood"]
+[ext_resource type="Texture2D" uid="uid://c1reloi8nj0b1" path="res://colors/HyperCasual Game UI/homeBtn.png" id="7_aw0da"]
+[ext_resource type="AudioStream" uid="uid://3n8801cbpjvo" path="res://audio/villager_train1.wav" id="8_y2n53"]
+
+[node name="gui" type="Node2D"]
+script = ExtResource("1_x6yni")
+
+[node name="health" type="RichTextLabel" parent="."]
+offset_left = 103.0
+offset_top = 97.0
+offset_right = 436.0
+offset_bottom = 455.0
+theme_override_font_sizes/normal_font_size = 40
+text = "health
+
+"
+
+[node name="buyn" type="Button" parent="."]
+offset_left = 883.0
+offset_top = 192.0
+offset_right = 1059.0
+offset_bottom = 294.0
+
+[node name="buys" type="Button" parent="."]
+offset_left = 883.0
+offset_top = 305.0
+offset_right = 1059.0
+offset_bottom = 407.0
+
+[node name="coinback" type="Sprite2D" parent="."]
+self_modulate = Color(0.196078, 0.196078, 0.196078, 1)
+position = Vector2(185.1, 58)
+scale = Vector2(0.584401, 0.4)
+texture = ExtResource("2_u7ohc")
+
+[node name="coins" type="RichTextLabel" parent="."]
+offset_left = 108.0
+offset_top = 23.0
+offset_right = 234.0
+offset_bottom = 99.0
+theme_override_font_sizes/normal_font_size = 40
+text = "stage
+"
+
+[node name="CoinIcon" type="Sprite2D" parent="."]
+position = Vector2(60, 57)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_a5qyp")
+
+[node name="coinbuy" type="Sprite2D" parent="CoinIcon"]
+self_modulate = Color(0, 0.639216, 0, 1)
+position = Vector2(643.333, 3.33331)
+scale = Vector2(0.833333, 0.833333)
+texture = ExtResource("4_mpuak")
+
+[node name="coinbuyout" type="Sprite2D" parent="CoinIcon/coinbuy"]
+self_modulate = Color(0, 0.470588, 0, 1)
+scale = Vector2(0.88, 0.88)
+texture = ExtResource("4_mpuak")
+
+[node name="PlusIcon" type="Sprite2D" parent="CoinIcon/coinbuy"]
+self_modulate = Color(0.447059, 1, 0.415686, 1)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("5_jsc75")
+
+[node name="BlueBtnNormal" type="Sprite2D" parent="."]
+position = Vector2(1004, 78)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_h7ood")
+
+[node name="HomeBtn" type="Sprite2D" parent="BlueBtnNormal"]
+position = Vector2(0, -10)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_aw0da")
+
+[node name="homebutton" type="Button" parent="BlueBtnNormal"]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -128.0
+offset_top = -134.0
+offset_right = 128.0
+offset_bottom = 136.0
+
+[node name="spawn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_y2n53")
+
+[connection signal="button_down" from="buyn" to="." method="_on_buyn_button_down"]
+[connection signal="button_down" from="buys" to="." method="_on_buys_button_down"]
+[connection signal="button_down" from="BlueBtnNormal/homebutton" to="." method="_on_homebutton_button_down"]
